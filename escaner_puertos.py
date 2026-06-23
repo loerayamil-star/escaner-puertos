@@ -154,9 +154,9 @@ class EscanerPuertos:
                 )
             )
 # ── PUNTO DE ENTRADA
+
+
 if __name__ == "__main__":
     root = tk.Tk()
     app = EscanerPuertos(root)
     root.mainloop()
-
-
