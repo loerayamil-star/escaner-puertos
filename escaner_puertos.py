@@ -4,8 +4,6 @@ import threading
 import tkinter as tk
 from tkinter import ttk
 
-
-
 # ── DATOS DE REFERENCIA ───────────────────────────────────────────────────────
 
 SERVICIOS_COMUNES = {
@@ -26,7 +24,7 @@ SERVICIOS_COMUNES = {
 
 # ── CLASE PRINCIPAL ───────────────────────────────────────────────────────────
 class EscanerPuertos:
-   
+
     def __init__(self, root):
         self.root = root
         self.root.title("Escaner de Puertos")
@@ -42,17 +40,17 @@ class EscanerPuertos:
 
         tk.Label(self.root, text="Puerto Inicial").pack()
         self.entry_puerto_inicial = tk.Entry(self.root)
-        self.entry_puerto_inicial.insert(0,"1")
+        self.entry_puerto_inicial.insert(0, "1")
         self.entry_puerto_inicial.pack()
 
         tk.Label(self.root, text="Puerto Final").pack()
         self.entry_puerto_final = tk.Entry(self.root)
-        self.entry_puerto_final.insert(0,"1024")
+        self.entry_puerto_final.insert(0, "1024")
         self.entry_puerto_final.pack()
-        
+
         self.boton_escanear = tk.Button(self.root, text="Iniciar escaneo", command=self.iniciar_escaneo)
         self.boton_escanear.pack(pady=5)
-        
+
         self.progressbar = ttk.Progressbar(self.root, orient="horizontal", length=400, mode="determinate")
         self.progressbar.pack(pady=5)
 
@@ -100,16 +98,15 @@ class EscanerPuertos:
         self.root.after(0, lambda: self.label_estado.config(text="Escaneo completado"))
         self.root.after(0, lambda: self.boton_escanear.config(state="normal"))
 
-
     # ─────────────────────────────────────────────────────────────────────────
     def iniciar_escaneo(self):
         try:
-            puerto_inicial = int(self.entry_puerto_inicial.get())
-            puerto_final = int(self.entry_puerto_final.get())
+            int(self.entry_puerto_inicial.get())
+            int(self.entry_puerto_final.get())
         except ValueError:
             self.label_estado["text"] = "Error: los puertos deben ser números"
             return
-        
+
         self.tabla.delete(*self.tabla.get_children())
         self.boton_escanear.config(state="disabled")
 
@@ -125,7 +122,6 @@ class EscanerPuertos:
     def actualizar_barra(self, valor):
         self.root.after(0, lambda: self.progressbar.config(value=valor))
         self.root.after(0, lambda: self.label_estado.config(text=f"Escaneando... {valor:.0f}%"))
-
 
 # ── PUNTO DE ENTRADA ──────────────────────────────────────────────────────────
 if __name__ == "__main__":
