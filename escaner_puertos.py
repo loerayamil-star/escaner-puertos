@@ -4,7 +4,6 @@ import threading
 import tkinter as tk
 from tkinter import ttk
 
-# ── DATOS DE REFERENCIA ───────────────────────────────────────────────────────
 
 SERVICIOS_COMUNES = {
     21:   "FTP",
@@ -48,10 +47,16 @@ class EscanerPuertos:
         self.entry_puerto_final.insert(0, "1024")
         self.entry_puerto_final.pack()
 
-        self.boton_escanear = tk.Button(self.root, text="Iniciar escaneo", command=self.iniciar_escaneo)
+        self.boton_escanear = tk.Button(
+            self.root, text="Iniciar escaneo",
+            command=self.iniciar_escaneo
+            )
         self.boton_escanear.pack(pady=5)
 
-        self.progressbar = ttk.Progressbar(self.root, orient="horizontal", length=400, mode="determinate")
+        self.progressbar = ttk.Progressbar(
+            self.root, orient="horizontal",
+            length=400, mode="determinate"
+            )
         self.progressbar.pack(pady=5)
 
         self.label_estado = tk.Label(self.root, text="Listo")
@@ -60,7 +65,10 @@ class EscanerPuertos:
         frame_tabla = tk.Frame(self.root)
         frame_tabla.pack(fill="both", expand=True, padx=10, pady=10)
 
-        self.tabla = ttk.Treeview(frame_tabla, columns=("puerto", "servicio", "estado"), show="headings")
+        self.tabla = ttk.Treeview(
+            frame_tabla, columns=("puerto", "servicio", "estado"),
+            show="headings"
+            )
         self.tabla.heading("puerto",   text="Puerto")
         self.tabla.heading("servicio", text="Servicio")
         self.tabla.heading("estado",   text="Estado")
@@ -68,7 +76,10 @@ class EscanerPuertos:
         self.tabla.column("servicio", width=150)
         self.tabla.column("estado",   width=100)
 
-        scroll = ttk.Scrollbar(frame_tabla, orient="vertical", command=self.tabla.yview)
+        scroll = ttk.Scrollbar(
+            frame_tabla, orient="vertical",
+            command=self.tabla.yview
+            )
         self.tabla.configure(yscrollcommand=scroll.set)
         self.tabla.pack(side="left", fill="both", expand=True)
         scroll.pack(side="right", fill="y")
@@ -122,6 +133,7 @@ class EscanerPuertos:
     def actualizar_barra(self, valor):
         self.root.after(0, lambda: self.progressbar.config(value=valor))
         self.root.after(0, lambda: self.label_estado.config(text=f"Escaneando... {valor:.0f}%"))
+
 
 # ── PUNTO DE ENTRADA ──────────────────────────────────────────────────────────
 if __name__ == "__main__":
