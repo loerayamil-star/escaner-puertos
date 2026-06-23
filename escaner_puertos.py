@@ -153,8 +153,10 @@ class EscanerPuertos:
                 text=f"Escaneando... {valor:.0f}%"
                 )
             )
-# ── PUNTO DE ENTRADA 
+# ── PUNTO DE ENTRADA
 if __name__ == "__main__":
+
+    
     root = tk.Tk()
     app = EscanerPuertos(root)
     root.mainloop()
