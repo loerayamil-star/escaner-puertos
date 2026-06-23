@@ -135,14 +135,24 @@ class EscanerPuertos:
 
     # ─────────────────────────
     def actualizar_lista(self, puerto, servicio):
-        self.root.after(0, lambda: self.tabla.insert("", "end", values=(puerto, servicio, "Abierto")))
+        self.root.after(
+            0, lambda: self.tabla.insert(
+                "", "end", values=(puerto, servicio, "Abierto")
+                )
+            )
 
     # ─────────────────────────
     def actualizar_barra(self, valor):
-        self.root.after(0, lambda: self.progressbar.config(value=valor))
-        self.root.after(0, lambda: self.label_estado.config(text=f"Escaneando... {valor:.0f}%"))
-
-
+        self.root.after(
+            0, lambda: self.progressbar.config(
+                value=valor
+                )
+            )
+        self.root.after(
+            0, lambda: self.label_estado.config(
+                text=f"Escaneando... {valor:.0f}%"
+                )
+            )
 # ── PUNTO DE ENTRADA 
 if __name__ == "__main__":
     root = tk.Tk()
