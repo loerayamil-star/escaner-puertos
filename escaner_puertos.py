@@ -1,4 +1,4 @@
-# ── IMPORTS ──────────────────────────────────────────────────────────────────
+# ── IMPORTS ──────────────────────
 import socket
 import threading
 import tkinter as tk
@@ -21,7 +21,7 @@ SERVICIOS_COMUNES = {
 }
 
 
-# ── CLASE PRINCIPAL ───────────────────────────────────────────────────────────
+# ── CLASE PRINCIPAL
 class EscanerPuertos:
 
     def __init__(self, root):
@@ -30,7 +30,7 @@ class EscanerPuertos:
         self.root.minsize(500, 500)
         self.construir_ui()
 
-    # ─────────────────────────────────────────────────────────────────────────
+    # ───────────────────────────
     def construir_ui(self):
         tk.Label(self.root, text="Host:").pack()
         self.entry_host = tk.Entry(self.root)
@@ -84,7 +84,7 @@ class EscanerPuertos:
         self.tabla.pack(side="left", fill="both", expand=True)
         scroll.pack(side="right", fill="y")
 
-    # ─────────────────────────────────────────────────────────────────────────
+    # ─────────────────────────
     def escanear_puerto(self, host, puerto):
         s = socket.socket()
         s.settimeout(1)
@@ -93,7 +93,7 @@ class EscanerPuertos:
 
         return resultado == 0
 
-    # ─────────────────────────────────────────────────────────────────────────
+    # ───────────────────────────
     def ejecutar_escaneo(self):
         host = self.entry_host.get()
         puerto_inicial = int(self.entry_puerto_inicial.get())
@@ -104,12 +104,20 @@ class EscanerPuertos:
             if abierto:
                 servicio = SERVICIOS_COMUNES.get(puerto, "Desconocido")
                 self.actualizar_lista(puerto, servicio)
-            porcentaje = (puerto - puerto_inicial) / (puerto_final - puerto_inicial) * 100
+            porcentaje = (
+                puerto - puerto_inicial
+                ) / (
+                puerto_final - puerto_inicial
+                ) * 100
             self.actualizar_barra(porcentaje)
-        self.root.after(0, lambda: self.label_estado.config(text="Escaneo completado"))
-        self.root.after(0, lambda: self.boton_escanear.config(state="normal"))
+        self.root.after(
+            0, lambda: self.label_estado.config(text="Escaneo completado")
+            )
+        self.root.after(
+            0, lambda: self.boton_escanear.config(state="normal")
+            )
 
-    # ─────────────────────────────────────────────────────────────────────────
+    # ──────────────────────────
     def iniciar_escaneo(self):
         try:
             int(self.entry_puerto_inicial.get())
@@ -125,17 +133,17 @@ class EscanerPuertos:
         hilo.daemon = True
         hilo.start()
 
-    # ─────────────────────────────────────────────────────────────────────────
+    # ─────────────────────────
     def actualizar_lista(self, puerto, servicio):
         self.root.after(0, lambda: self.tabla.insert("", "end", values=(puerto, servicio, "Abierto")))
 
-    # ─────────────────────────────────────────────────────────────────────────
+    # ─────────────────────────
     def actualizar_barra(self, valor):
         self.root.after(0, lambda: self.progressbar.config(value=valor))
         self.root.after(0, lambda: self.label_estado.config(text=f"Escaneando... {valor:.0f}%"))
 
 
-# ── PUNTO DE ENTRADA ──────────────────────────────────────────────────────────
+# ── PUNTO DE ENTRADA 
 if __name__ == "__main__":
     root = tk.Tk()
     app = EscanerPuertos(root)
