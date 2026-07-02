@@ -11,7 +11,7 @@ jobs:
   lint:           
     runs-on: ubuntu-latest   
 
-    
+
     steps:
       - name: Clonar repo
         uses: actions/checkout@v4   
@@ -26,3 +26,9 @@ jobs:
 
       - name: Analizar archivo 
         run: flake8 escaner_puertos.py   
+
+      - name: Instalar bandit
+        run: pip install bandit
+
+      - name: Analizar seguridad con bandit
+        run: bandit -r escaner_puertos.py
